@@ -1,0 +1,270 @@
+/*=========================
+    CONFIGURACIÓN GENERAL
+==========================*/
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+  background:#0D1B3D;
+  background-image:
+    radial-gradient(circle at top left,#23384d 0%,transparent 25%),
+    radial-gradient(circle at bottom right,#ebedf0 0%,transparent 25%);
+  display:flex;
+  min-height:100vh;
+}
+
+
+/*=========================
+      MENÚ LATERAL
+==========================*/
+
+.sidebar{
+  width:240px;
+  background:#08224f;
+  color:white;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  padding:20px;
+  border-right:2px solid #FFD400;
+}
+
+.logo{
+  text-align:center;
+  margin-bottom:0px;
+}
+
+.logo img{
+  width:110px;
+
+margin-bottom:10px;
+
+}
+
+.logo h3{
+  color:#FFD400;
+  font-size:25px;
+  line-height:25px;
+}
+
+.sidebar ul{
+  list-style:none;
+  padding:0;
+}
+
+.sidebar ul li{
+  margin-bottom:12px;
+}
+
+.sidebar ul li a{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:12px;
+  text-decoration:none;
+  color:white;
+  border-radius:10px;
+  transition:.3s;
+}
+
+.sidebar ul li a:hover{
+  background:#FFD400;
+  color:#08224f;
+}
+
+.activo a{
+  background:#FFD400;
+  color:#08224f !important;
+  font-weight:bold;
+}
+
+#cerrar{
+  background:#FFD400;
+  border:none;
+  padding:12px;
+  border-radius:10px;
+  font-weight:bold;
+  cursor:pointer;
+  transition:.3s;
+}
+
+#cerrar:hover{
+  background:white;
+}
+
+
+/*=========================
+      CONTENIDO
+==========================*/
+
+.contenido{
+  flex:1;
+  padding:30px;
+}
+
+
+/*=========================
+      ENCABEZADO
+==========================*/
+
+.encabezado {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  background: transparent !important;
+}
+
+
+.encabezado .iconos {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.encabezado .iconos i {
+  color: #ffffff !important;
+  font-size: 24px;
+  cursor: pointer;
+  transition: transform 0.2s ease, color 0.2s ease;
+  background-color: transparent !important;
+  text-shadow: none !important;
+}
+
+.encabezado .iconos i:hover {
+  color: #FFD400 !important;
+  transform: scale(1.1);
+}
+
+/*=========================
+       TÍTULO
+==========================*/
+
+.titulo{
+  color:white;
+  margin-bottom:25px;
+}
+
+.titulo h2{
+  font-size:34px;
+  font-weight:bold;
+}
+
+.titulo p{
+  font-size:17px;
+  color:#ddd;
+}
+
+
+/*=========================
+      FORMULARIO
+==========================*/
+
+.formulario{
+  background:white;
+  padding:25px;
+  border-radius:15px;
+  border-left:8px solid #FFD400;
+  box-shadow:0 0 15px rgba(0,0,0,.3);
+}
+
+label{
+  font-weight:bold;
+  margin-bottom:6px;
+  display:block;
+  color:#08224f;
+}
+
+.form-control{
+  height:45px;
+}
+
+.form-control:focus{
+  border-color:#FFD400;
+  box-shadow:0 0 8px rgba(255,212,0,.4);
+}
+
+.botones{
+  display:flex;
+  gap:15px;
+  margin-top:10px;
+}
+
+.botones .btn{
+  padding:10px 20px;
+  font-weight:bold;
+}
+
+
+/*=========================
+        TABLA
+==========================*/
+
+.tabla{
+  background:white;
+  padding:25px;
+  border-radius:15px;
+  box-shadow:0 0 15px rgba(0,0,0,.3);
+}
+
+.tabla h4{
+  margin-bottom:20px;
+  color:#08224f;
+  font-weight:bold;
+}
+
+.table thead{
+  background:#08224f;
+  color:white;
+}
+
+.table th{
+  padding:14px;
+  text-align:center;
+}
+
+.table td{
+  text-align:center;
+  vertical-align:middle;
+}
+
+.table tbody tr:hover{
+  background:#f2f2f2;
+}
+
+
+/*=========================
+      BOTÓN ELIMINAR
+==========================*/
+
+.btn-danger{
+  font-size:14px;
+}
+
+
+/*=========================
+      RESPONSIVE
+==========================*/
+
+@media(max-width:1000px){
+  body{
+    flex-direction:column;
+  }
+
+  .sidebar{
+    width:100%;
+  }
+
+  .contenido{
+    padding:20px;
+  }
+
+  .botones{
+    flex-direction:column;
+  }
+}
