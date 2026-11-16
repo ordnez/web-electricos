@@ -5,3 +5,18 @@ target/
 .settings/
 .project
 .classpath
+
+# Dependencias y archivos de React
+frontend/node_modules/
+frontend/dist/
+frontend/.env
+frontend/.env.*
+!frontend/.env.example
+
+# Archivos de configuracion privada
+.env
+.env.*
+!.env.example
+
+# Archivos temporales
+*.log
