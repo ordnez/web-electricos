@@ -14,6 +14,11 @@ function App() {
   const [cargando, setCargando] = useState(true)
   const [idEditar, setIdEditar] = useState(null)
 
+  const [errorNombre, setErrorNombre] = useState('')
+  const [errorApellido, setErrorApellido] = useState('')
+  const [errorCedula, setErrorCedula] = useState('')
+  const [errorTelefono, setErrorTelefono] = useState('')
+
   // Consultar los clientes almacenados en MySQL.
   const cargarClientes = async () => {
     try {
@@ -45,13 +50,47 @@ function App() {
     setTelefono('')
     setCorreo('')
     setDireccion('')
+    setErrorNombre('')
+    setErrorApellido('')
+    setErrorCedula('')
+    setErrorTelefono('')
     setIdEditar(null)
+  }
+
+  // Validar que los nombres solamente contengan letras.
+  const validarTexto = (valor) => {
+    return /^[A-Za-zÁÉÍÓÚáéíóúÜüÑñ\s'-]+$/.test(valor)
   }
 
   // Registrar o actualizar un cliente.
   const guardarCliente = async (e) => {
     e.preventDefault()
     setMensaje('')
+
+    if (!validarTexto(nombre.trim())) {
+      setErrorNombre('El nombre solo debe contener letras.')
+      return
+    }
+
+    if (!validarTexto(apellido.trim())) {
+      setErrorApellido('El apellido solo debe contener letras.')
+      return
+    }
+
+    if (!/^\d{1,10}$/.test(cedula)) {
+      setErrorCedula('La cédula debe contener solamente números y máximo 10 dígitos.')
+      return
+    }
+
+    if (!/^\d{1,10}$/.test(telefono)) {
+      setErrorTelefono('El teléfono debe contener solamente números y máximo 10 dígitos.')
+      return
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo)) {
+      setMensaje('Ingrese un correo electrónico válido.')
+      return
+    }
 
     const datos = new URLSearchParams({
       nombres: nombre,
@@ -105,6 +144,10 @@ function App() {
     setTelefono(cliente.telefono)
     setCorreo(cliente.correo)
     setDireccion(cliente.direccion)
+    setErrorNombre('')
+    setErrorApellido('')
+    setErrorCedula('')
+    setErrorTelefono('')
     setMensaje('Editando los datos del cliente seleccionado.')
   }
 
@@ -193,9 +236,22 @@ function App() {
                   className="form-control"
                   type="text"
                   value={nombre}
-                  onChange={(e) => setNombre(e.target.value)}
+                  onChange={(e) => {
+                    const valor = e.target.value
+                    if (valor && !validarTexto(valor)) {
+                      setErrorNombre('El nombre solo permite letras, tildes y espacios.')
+                    } else {
+                      setErrorNombre('')
+                    }
+                    setNombre(valor.replace(/[^A-Za-zÁÉÍÓÚáéíóúÜüÑñ\s'-]/g, ''))
+                  }}
                   required
                 />
+                {errorNombre && (
+                  <small style={{ color: 'red', display: 'block', marginTop: '5px' }}>
+                    {errorNombre}
+                  </small>
+                )}
               </div>
 
               <div className="campo">
@@ -204,9 +260,22 @@ function App() {
                   className="form-control"
                   type="text"
                   value={apellido}
-                  onChange={(e) => setApellido(e.target.value)}
+                  onChange={(e) => {
+                    const valor = e.target.value
+                    if (valor && !validarTexto(valor)) {
+                      setErrorApellido('El apellido solo permite letras, tildes y espacios.')
+                    } else {
+                      setErrorApellido('')
+                    }
+                    setApellido(valor.replace(/[^A-Za-zÁÉÍÓÚáéíóúÜüÑñ\s'-]/g, ''))
+                  }}
                   required
                 />
+                {errorApellido && (
+                  <small style={{ color: 'red', display: 'block', marginTop: '5px' }}>
+                    {errorApellido}
+                  </small>
+                )}
               </div>
 
               <div className="campo">
@@ -214,10 +283,28 @@ function App() {
                 <input
                   className="form-control"
                   type="text"
+                  inputMode="numeric"
                   value={cedula}
-                  onChange={(e) => setCedula(e.target.value)}
+                  onChange={(e) => {
+                    const valor = e.target.value
+                    if (/[^0-9]/.test(valor)) {
+                      setErrorCedula('La cédula solo permite números.')
+                    } else {
+                      setErrorCedula('')
+                    }
+                    if (valor.replace(/[^0-9]/g, '').length > 10) {
+                      setErrorCedula('La cédula permite máximo 10 dígitos.')
+                    }
+                    setCedula(valor.replace(/[^0-9]/g, '').slice(0, 10))
+                  }}
+                  maxLength={10}
                   required
                 />
+                {errorCedula && (
+                  <small style={{ color: 'red', display: 'block', marginTop: '5px' }}>
+                    {errorCedula}
+                  </small>
+                )}
               </div>
 
               <div className="campo">
@@ -225,10 +312,28 @@ function App() {
                 <input
                   className="form-control"
                   type="tel"
+                  inputMode="numeric"
                   value={telefono}
-                  onChange={(e) => setTelefono(e.target.value)}
+                  onChange={(e) => {
+                    const valor = e.target.value
+                    if (/[^0-9]/.test(valor)) {
+                      setErrorTelefono('El teléfono solo permite números.')
+                    } else {
+                      setErrorTelefono('')
+                    }
+                    if (valor.replace(/[^0-9]/g, '').length > 10) {
+                      setErrorTelefono('El teléfono permite máximo 10 dígitos.')
+                    }
+                    setTelefono(valor.replace(/[^0-9]/g, '').slice(0, 10))
+                  }}
+                  maxLength={10}
                   required
                 />
+                {errorTelefono && (
+                  <small style={{ color: 'red', display: 'block', marginTop: '5px' }}>
+                    {errorTelefono}
+                  </small>
+                )}
               </div>
 
               <div className="campo">
